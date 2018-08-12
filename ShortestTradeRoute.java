@@ -5,7 +5,7 @@ import java.util.Random;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-
+import java.util.stream.Stream;
 public class ShortestTradeRoute {
     
     public static void main(String[] args) throws IOException{
@@ -54,8 +54,9 @@ public class ShortestTradeRoute {
          */
 
        int[][] testCommandLine = Files.lines(FileSystems.getDefault().getPath(args[0]))
-                                    .map(item -> item.chars().filter(i -> (char) i != '\t').map(Character::getNumericValue).toArray())
-                                    .toArray(int[][]::new); 
+                                    .map((l)->l.trim().split("\\s+"))
+                                    .map((sa)->Stream.of(sa).mapToInt(Integer::parseInt).toArray())
+                                    .toArray(int[][]::new);
         
         for (int i = 0; i < testCommandLine[0].length; i++){
             for (int j = 0; j < testCommandLine.length; j++) {
