@@ -6,11 +6,8 @@ We can assume that R(i,i)=0, and that you can't go upriver (so perhaps R(i,j)= â
 For example, one cost array with n=4 might be the following.
 
 0237
-
 -024
-
 --02
-
 ---0
 
 The problem is to find a dynamic programming algorithm that computes the cheapest sequence of rental taking you from post 1 all the way down to post n. 
