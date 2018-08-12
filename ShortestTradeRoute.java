@@ -13,7 +13,7 @@ public class ShortestTradeRoute {
         /**
          * @param testGiven this was the array given to us for the problem.
          */
-        int[][] testGiven  = { {0, 2, 3, 7},
+        final int[][] testGiven  = { {0, 2, 3, 7},
                                 {0, 0, 2, 4},
                                 {0, 0, 0, 2},
                                 {0, 0, 0, 0}};
@@ -53,7 +53,7 @@ public class ShortestTradeRoute {
          * to do because you told us we didn't have to worry about even reading in from a file.
          */
 
-       int[][] testCommandLine = Files.lines(FileSystems.getDefault().getPath(args[0]))
+       final int[][] testCommandLine = Files.lines(FileSystems.getDefault().getPath(args[0]))
                                     .map((l)->l.trim().split("\\s+"))
                                     .map((sa)->Stream.of(sa).mapToInt(Integer::parseInt).toArray())
                                     .toArray(int[][]::new);
