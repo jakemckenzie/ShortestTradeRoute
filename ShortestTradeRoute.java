@@ -11,8 +11,9 @@ public class ShortestTradeRoute {
                                 {0, 0, 0, 2},
                                 {0, 0, 0, 0}};
         /**
-         * @param test N4 generated in mathematica using f[n_] = UpperTriangularize[Table[RandomInteger[{1, n}], {i, 1, n}, {j, 1, n}]]
-         * where f[4]
+         * https://mathematica.stackexchange.com/questions/92666/how-to-zero-or-replace-the-diagonal-of-a-square-matrix
+         * https://mathematica.stackexchange.com/questions/27408/have-the-random-functions-changed
+         * https://link.springer.com/chapter/10.1007%2F3-540-46416-6_17
          */
         
         
