@@ -1,12 +1,27 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-public class Graph{
+/**
+ * @author Jake McKenzie
+ * @version August 12, 2018
+ */
+public class Graph {
+    /**
+     * @param V A list of vertices represented by their nodes
+     */
     List<Node> V;
+    /**
+     * @param E a list of edges represnted by edges
+     */
     List<Edge> E;
-    public Graph(){
-        V = new ArrayList<Node>();
-        E = new ArrayList<Edge>();
+    /**
+     * A simple constructor that initializes the graph.
+     * The array should never increase in size if my calculations are
+     * correct saving a lot of time.
+     */
+    public Graph(int numberOfVertices, int numberOfEdges){
+        V = new ArrayList<Node>(numberOfVertices);
+        E = new ArrayList<Edge>(numberOfEdges);
     }
     /**
      * @param n
@@ -32,10 +47,15 @@ public class Graph{
         }
 
     }
-    
+    /**
+     * A simple print function for seeing:
+     * 1) the cost at each node
+     * 2) the interior nodes
+     * 3) the adjacency list
+     * 4) the adjacency list cost
+     */
     public void print(){
         StringBuilder sb = new StringBuilder();
-        sb.append("");
         for(Node nodes: V){	
             sb.append("Node: " + nodes.node + "\nCost: " + nodes.cost);
             if (nodes.interior != null) sb.append("\nInterior: "+ nodes.interior.node);
@@ -48,8 +68,13 @@ public class Graph{
     }
     /**
      * The running time of this is O((V-1)!) ~ V^V = 2^(VlogV) because there are (V-1)! ways of paths to traverse in a graph like this.
-     * Slide 16 explains this runtime although I think their equation is off by one(reasoning is sound tho):
-     * https://courses.csail.mit.edu/6.006/spring11/lectures/lec14.pdf
+     * I came to this reasoning from watching this video below. As I am dealing with permutatios instead of 
+     * partitions. I have (V-1)! instead of 2^V.
+     * https://www.coursera.org/lecture/advanced-algorithms-and-complexity/brute-force-search-x60TX
+     * 
+     * The space complexity is even worse as there are V^(V-1) spanning trees in a complete
+     * graph. I do not have a complete graph here but it is not sparse either so the space
+     * complexity is very bad.
      */
     
     public List<Dipath> naiveBruteForce(){
@@ -115,9 +140,10 @@ public class Graph{
         return temp;
     }
     /**
-     * Bredth First Search using decrease and conquer. Explores all local nodes and returns local min at each stage
-     * keeping the global min as it goes along.
+     * Bredth First Search using decrease and conquer. 
+     * http://www.cs.cmu.edu/afs/cs/academic/class/15210-f12/www/lectures/lecture10.pdf
      * https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2012/lecture-notes/MIT6_046JS12_lec06.pdf
+     * https://www.geeksforgeeks.org/decrease-and-conquer/
      */
     
     public Dipath BreadthFirstSearch(){
@@ -130,8 +156,8 @@ public class Graph{
     }
     
     /**
-     * Calculates the minimum local path in a area around the node keeping the shortest at
-     * each recursive call.
+     * Here we build a list of new "unvisited" routes, where the structure is a tuple of cost, then a 
+     * list of paths taken is to get that cost from the start.
      * @param source
      * @param destination 
      */
@@ -148,7 +174,8 @@ public class Graph{
 
     }
     /**
-     * 
+     * http://www.csl.mtu.edu/cs4321/www/Lectures/Lecture%2010%20-%20Decrease%20and%20Conquer%20Sorts%20and%20Graph%20Searches.htm
+     * https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2012/lecture-notes/MIT6_046JS12_lec06.pdf
      */
     
     public Dipath Dijkstra(){

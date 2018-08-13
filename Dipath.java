@@ -1,13 +1,29 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-public class Dipath{
+/**
+ * @author Jake McKenzie
+ * @version August 12, 2018
+ */
+public class Dipath {
+    /**
+     * @param path
+     */
     List<Edge> path;
+    /**
+     * @paramcost
+     */
     int cost;
+    /**
+     * constructor for the directed path
+     */
     public Dipath(){
         path = new ArrayList<Edge>();
         cost = 0;
     }
+    /**
+     * @param e an edge sent for labeling
+     */
     public void edgeLabeling(Edge e){
         if(!e.source.equals(e.destination)){
             int size = path.size();
@@ -25,6 +41,9 @@ public class Dipath{
             }
         }
     }
+    /**
+     * A simple tostring method for printing.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

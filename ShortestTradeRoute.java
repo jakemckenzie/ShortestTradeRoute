@@ -6,6 +6,38 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
+/**
+ * @author Jake McKenzie
+ * @version August 12, 2018
+ * 
+ * Problem Statement: There are n trading posts numbered from n, as you travel
+ * down stream. At any trading post i, you can rent a canoe to be returned at 
+ * any of the downstream trading posts j > i. You are given a cost array R(i,j)
+ * given the cost of the rentals for 1 <= i <= j <= n. We will have to assume that
+ * R(i,j) = 0 and R(i,j) = infinity if i > j. For example, with n = 4, the cost array
+ * may look as follows:
+ * 
+ *          0    2   3   7
+ *          -    0   2   4
+ *          -    -   0   2
+ *          -    -   -   0
+ * 
+ * The problem is to find a solution that computes the cheapest sequence of rentals 
+ * taking you from post 1 all the way down to post n. In this example, the cheapest 
+ * sequence is to rent from post 1 to post 3 (cost 3), then from post 3 to post 4 
+ * (cost 2), with a total cost of 5 (less than the direct rental from post 1 to post 
+ * 7, which would cost 7).
+ * 
+ * As I was watching Eric Demaine from MIT to review for my course in Algorithms he
+ * stated that any minimizing and maximizing over a sequence in infact a graph
+ * problem. As I dug deeper I found he continued in this vein saying "it turns out
+ * that most dynamic programs can be converted to solving single-source shortest paths
+ * typically in a DAG - not all but a lot of them" ~ Eric Demaine
+ * 
+ * https://youtu.be/NzgFUwOaoIw?t=15m20s
+ * 
+ * This is what I set out to do and I accomplished. 
+ */
 public class ShortestTradeRoute {
     
     public static void main(String[] args) throws IOException{
@@ -14,9 +46,9 @@ public class ShortestTradeRoute {
          * @param testGiven this was the array given to us for the problem.
          */
         final int[][] testGiven  = { {0, 2, 3, 7},
-                                {0, 0, 2, 4},
-                                {0, 0, 0, 2},
-                                {0, 0, 0, 0}};
+                                     {0, 0, 2, 4},
+                                     {0, 0, 0, 2},
+                                     {0, 0, 0, 0}};
         /**
          * So I generated many random matrices for testing in mathematica. I decided to generate them there because the tools
          * for generating random numbers is much more mature in mathematica and I could easily generate better unpredictability
@@ -67,16 +99,16 @@ public class ShortestTradeRoute {
             System.out.print("\n");
         }
         Long startTime = System.currentTimeMillis();
-        Graph g = new Graph();
+        Graph g = new Graph(testCommandLine.length,factorial(testCommandLine.length - 1));
         g.drawGraph(testCommandLine);
         Long runTime = System.currentTimeMillis() - startTime;
         System.out.println("Preprocessing Runtime: " + runTime + " ns");
-        System.out.println("Naive Approach: ");
-        startTime = System.currentTimeMillis();
-        Dipath temp = g.minimumNaiveBruteForce();
-        runTime = System.currentTimeMillis() - startTime;
-        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
-        System.out.println("Runtime: " + runTime + " ms");
+        // System.out.println("Naive Approach: ");
+        // startTime = System.currentTimeMillis();
+        // Dipath temp = g.minimumNaiveBruteForce();
+        // runTime = System.currentTimeMillis() - startTime;
+        // System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        // System.out.println("Runtime: " + runTime + " ms");
 
         startTime = System.nanoTime();
         Dipath BFS = g.BreadthFirstSearch();
@@ -93,6 +125,14 @@ public class ShortestTradeRoute {
         System.out.println("Dijkstra: ");
         System.out.println("Minimum path: "+ Dijksta.toString()+"\nCost: "+ Dijksta.cost);
         System.out.println("Runtime: " + runTime + " ns");
+    }
+
+    public static int factorial(int N) {
+        if (N == 0) return 1;
+        int p = 1, i;
+        for (i = 1; i <= N; i++)
+            p *= i;
+        return p;
     }
 
 }
