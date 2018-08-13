@@ -51,6 +51,8 @@ public class ShortestTradeRoute {
          * @param testCommandLine the command line text file asked of us that reads in a random file that is tab delineated.
          * I didn't like the use of NA so I made sure that it could read in a file of zeros instead. I assumed this was okay
          * to do because you told us we didn't have to worry about even reading in from a file.
+         * 
+         * https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
          */
 
        final int[][] testCommandLine = Files.lines(FileSystems.getDefault().getPath(args[0]))
@@ -58,60 +60,37 @@ public class ShortestTradeRoute {
                                     .map((sa)->Stream.of(sa).mapToInt(Integer::parseInt).toArray())
                                     .toArray(int[][]::new);
         
-        for (int i = 0; i < testCommandLine[0].length; i++){
-            for (int j = 0; j < testCommandLine.length; j++) {
-                System.out.print(testCommandLine[i][j]+" ");
-            }
-            System.out.print("\n");
-        }
+        // for (int i = 0; i < testCommandLine[0].length; i++){
+        //     for (int j = 0; j < testCommandLine.length; j++) {
+        //         System.out.print(testCommandLine[i][j]+"\t");
+        //     }
+        //     System.out.print("\n");
+        // }
+        Long startTime = System.currentTimeMillis();
+        Graph g = new Graph();
+        g.drawGraph(testCommandLine);
+        Long runTime = System.currentTimeMillis() - startTime;
+        System.out.println("PreprocessingRuntime: " + runTime + " ns");
+        // startTime = System.currentTimeMillis();
+        // Dipath temp = g.getMinimumPathBruteForce();
+        // runTime = System.currentTimeMillis() - startTime;
+        // System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        // System.out.println("Runtime: " + runTime + " ms");
+
+        startTime = System.nanoTime();
+        Dipath temp = g.getMinimumPathRecursive();
+        runTime = System.nanoTime() - startTime;
+        System.out.println("BFS");
+        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("Runtime: " + runTime + " ns");
+
+        startTime = System.nanoTime();
+        temp = g.getMinPathDynamicProgramming();
+        runTime = System.nanoTime() - startTime;
+        System.out.println("Dijkstra");
+        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("Runtime: " + runTime + " ns");
         
-    }
-
-     /**
-     * @param n left sided variable
-     * @param m right sided variable
-     * computes the maximum between n and m without branching
-     * Hacker's Delight pg 100 Warren et al
-     * 
-     * also: https://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
-     */
-    public int max(int n, int m) {
-        return n ^ ((n ^ m) & -(n < m ? 1 : 0));
-    }
-
-    /**
-     * @param n left sided variable
-     * @param m right sided variable
-     * computes the minimum between n and m without branching
-     * Hacker's Delight pg 100 Warren et al
-     * 
-     * also: https://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
-     */
-    public int min(int n, int m) {
-        return m ^ ((n ^ m) & -(n < m ? 1 : 0));
-    }
-
-    /**
-     * I implemented XORShift and XORShift128plus after reading about how Java random works. 
-     * Essentially they exist to make better psuedo-random seeds. 
-     * 
-     * https://en.wikipedia.org/wiki/Xorshift
-     * https://www.javamex.com/tutorials/random_numbers/xorshift.shtml#.Wtmgwi7wZEY
-     */
-
-    private static long XORShift() {
-        long x = System.currentTimeMillis();
-        x ^= (x << 21);
-        x ^= (x >>> 35);
-        x ^= (x << 4);
-        return x;
-    }
-    private static long XORShift128plus() {
-        long x = System.currentTimeMillis();
-        long y = XORShift();    
-        x ^= (x << 23);
-        long z = x ^ y ^ (x >> 26);
-        return z + x;
     }
 
 }

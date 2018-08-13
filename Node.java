@@ -5,15 +5,15 @@ public class Node {
     List<Edge> paths;
     boolean visited;
     int cost;
-    Node retrace;
+    Node interior;
     public Node(int node) {
         visited = false;
         cost = 0x7FFFFFFF;
         this.node = node;
         paths = new ArrayList<Edge>();
-        retrace = null;
+        interior = null;
     }
-    public void addEdge(Node destination, int weight) {
+    public void edgeLabeling(Node destination, int weight) {
         if (!this.equals(destination)) {
             Edge e = new Edge(this, destination, weight);
             paths.add(e);

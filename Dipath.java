@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-public class Path{
+public class Dipath{
     List<Edge> path;
     int cost;
-    public Path(int size){
-        path = new ArrayList<Edge>(size);
+    public Dipath(){
+        path = new ArrayList<Edge>();
         cost = 0;
     }
-    public void addEdge(Edge e){
+    public void edgeLabeling(Edge e){
         if(!e.source.equals(e.destination)){
             int size = path.size();
             if(path.size() < 1){
@@ -36,14 +36,13 @@ public class Path{
             sb.append(", ");
         }
         sb.append(path.get(path.size() - 1).destination.node);
-        sb.append(", ");
         sb.append(")");
         return sb.toString();
     }
     
     @Override
     public boolean equals(Object o){
-        Path p = (Path) o;
+        Dipath p = (Dipath) o;
         return (this.cost == p.cost) ? this.path.equals(p.path) ? true : false : false;
     }
 
