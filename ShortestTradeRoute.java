@@ -60,38 +60,39 @@ public class ShortestTradeRoute {
                                     .map((sa)->Stream.of(sa).mapToInt(Integer::parseInt).toArray())
                                     .toArray(int[][]::new);
         
-        // for (int i = 0; i < testCommandLine[0].length; i++){
-        //     for (int j = 0; j < testCommandLine.length; j++) {
-        //         System.out.print(testCommandLine[i][j]+"\t");
-        //     }
-        //     System.out.print("\n");
-        // }
+        for (int i = 0; i < testCommandLine[0].length; i++){
+            for (int j = 0; j < testCommandLine.length; j++) {
+                System.out.print(testCommandLine[i][j]+"\t");
+            }
+            System.out.print("\n");
+        }
         Long startTime = System.currentTimeMillis();
         Graph g = new Graph();
         g.drawGraph(testCommandLine);
         Long runTime = System.currentTimeMillis() - startTime;
-        System.out.println("PreprocessingRuntime: " + runTime + " ns");
-        // System.out.println("Naive Approach: ");
-        // startTime = System.currentTimeMillis();
-        // Dipath temp = g.minimumNaiveBruteForce();
-        // runTime = System.currentTimeMillis() - startTime;
-        // System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
-        // System.out.println("Runtime: " + runTime + " ms");
+        System.out.println("Preprocessing Runtime: " + runTime + " ns");
+        System.out.println("Naive Approach: ");
+        startTime = System.currentTimeMillis();
+        Dipath temp = g.minimumNaiveBruteForce();
+        runTime = System.currentTimeMillis() - startTime;
+        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("Runtime: " + runTime + " ms");
 
         startTime = System.nanoTime();
-        Dipath temp = g.getMinimumPathRecursive();
+        Dipath BFS = g.BreadthFirstSearch();
         runTime = System.nanoTime() - startTime;
-        System.out.println("BFS: ");
-        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("BFS using Decrease and Conquer: ");
+        System.out.println("Minimum path: "+BFS.toString()+"\nCost: "+ BFS.cost);
         System.out.println("Runtime: " + runTime + " ns");
 
+        System.out.println();
+
         startTime = System.nanoTime();
-        temp = g.getMinPathDynamicProgramming();
+        Dipath Dijksta = g.Dijkstra();
         runTime = System.nanoTime() - startTime;
         System.out.println("Dijkstra: ");
-        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("Minimum path: "+ Dijksta.toString()+"\nCost: "+ Dijksta.cost);
         System.out.println("Runtime: " + runTime + " ns");
-        
     }
 
 }

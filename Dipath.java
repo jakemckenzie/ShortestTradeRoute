@@ -48,6 +48,6 @@ public class Dipath{
 
     public boolean flagger(Edge e){
         int size = path.size();
-        return (path.size() < 1) ? true : (path.get(size-1).destination.node == e.source.node) ? true : false;
+        return (path.size() < 1) ? true : (path.get(size - 1).destination.node == e.source.node) ? true : false;
     }
 }
