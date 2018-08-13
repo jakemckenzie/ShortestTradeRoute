@@ -71,8 +71,9 @@ public class ShortestTradeRoute {
         g.drawGraph(testCommandLine);
         Long runTime = System.currentTimeMillis() - startTime;
         System.out.println("PreprocessingRuntime: " + runTime + " ns");
+        // System.out.println("Naive Approach: ");
         // startTime = System.currentTimeMillis();
-        // Dipath temp = g.getMinimumPathBruteForce();
+        // Dipath temp = g.minimumNaiveBruteForce();
         // runTime = System.currentTimeMillis() - startTime;
         // System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
         // System.out.println("Runtime: " + runTime + " ms");
@@ -80,14 +81,14 @@ public class ShortestTradeRoute {
         startTime = System.nanoTime();
         Dipath temp = g.getMinimumPathRecursive();
         runTime = System.nanoTime() - startTime;
-        System.out.println("BFS");
+        System.out.println("BFS: ");
         System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
         System.out.println("Runtime: " + runTime + " ns");
 
         startTime = System.nanoTime();
         temp = g.getMinPathDynamicProgramming();
         runTime = System.nanoTime() - startTime;
-        System.out.println("Dijkstra");
+        System.out.println("Dijkstra: ");
         System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
         System.out.println("Runtime: " + runTime + " ns");
         
