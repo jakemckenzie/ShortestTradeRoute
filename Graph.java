@@ -19,9 +19,9 @@ public class Graph {
      * The array should never increase in size if my calculations are
      * correct saving a lot of time.
      */
-    public Graph(int numberOfVertices, int numberOfEdges){
+    public Graph(int numberOfVertices){
         V = new ArrayList<Node>(numberOfVertices);
-        E = new ArrayList<Edge>(numberOfEdges);
+        E = new ArrayList<Edge>();
     }
     /**
      * @param n

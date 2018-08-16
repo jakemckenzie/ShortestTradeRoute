@@ -1,0 +1,684 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     28884,        674]
+NotebookOptionsPosition[     26709,        628]
+NotebookOutlinePosition[     27055,        643]
+CellTagsIndexPosition[     27012,        640]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  "\"\<C:\\\\Users\\\\Epimetheus\\\\Documents\\\\GitHub\\\\ShortestTradeRoute\
+\\\\4by4\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.743176913683*^9, 
+  3.743176955712*^9}},ExpressionUUID->"04ce7512-863e-4b33-aa80-cfa6f82ff9a7"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\Epimetheus\\\\Documents\\\\GitHub\\\\\
+ShortestTradeRoute\\\\4by4\"\>"], "Output",
+ CellChangeTimes->{
+  3.743176961326*^9},ExpressionUUID->"6446b731-fbbc-4fdd-9d24-dce8c06f6d9f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"f", "[", "n_", "]"}], "=", 
+  RowBox[{"UpperTriangularize", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "n"}], "}"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", "n"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"j", ",", "1", ",", "n"}], "}"}]}], "]"}], ",", "1"}], 
+   "]"}]}]], "Input",ExpressionUUID->"03a93582-f450-4d5e-a64d-b9ed08743a32"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Table","iterb",
+   "\"Iterator \\!\\(\\*RowBox[{\\\"{\\\", RowBox[{\\\"i\\\", \\\",\\\", \
+\\\"1\\\", \\\",\\\", \\\"n\\\"}], \\\"}\\\"}]\\) does not have appropriate \
+bounds.\"",2,41,15,29571395071023792164,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.743177264241*^9},ExpressionUUID->"3ae1870c-ec10-46de-840f-8c78e4fa0a14"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "UpperTriangularize","matrix",
+   "\"Argument \\!\\(\\*RowBox[{\\\"Table\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"RandomInteger\\\", \\\"[\\\", RowBox[{\\\"{\\\", RowBox[{\
+\\\"1\\\", \\\",\\\", \\\"n\\\"}], \\\"}\\\"}], \\\"]\\\"}], \\\",\\\", \
+RowBox[{\\\"{\\\", RowBox[{\\\"i\\\", \\\",\\\", \\\"1\\\", \\\",\\\", \
+\\\"n\\\"}], \\\"}\\\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{\\\"j\\\", \\\
+\",\\\", \\\"1\\\", \\\",\\\", \\\"n\\\"}], \\\"}\\\"}]}], \\\"]\\\"}]\\) at \
+position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) is not a non-empty rectangular \
+matrix.\"",2,41,16,29571395071023792164,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.743177264242*^9},ExpressionUUID->"9c47e69b-c156-449b-ac99-bb857725830e"],
+
+Cell[BoxData[
+ RowBox[{"UpperTriangularize", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"RandomInteger", "[", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "n"}], "}"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "n"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "1", ",", "n"}], "}"}]}], "]"}], ",", "1"}], 
+  "]"}]], "Output",
+ CellChangeTimes->{
+  3.743177264277*^9},ExpressionUUID->"b1751b92-4f99-4810-9abf-20edb1a2db88"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"powersof2", " ", "=", " ", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"2", "^", "i"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"i", ",", "2", ",", "10"}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.743177841644*^9, 
+  3.743177860689*^9}},ExpressionUUID->"9ff5b515-bf65-4f42-a26a-77117632c89f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "4", ",", "8", ",", "16", ",", "32", ",", "64", ",", "128", ",", "256", ",",
+    "512", ",", "1024"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.743177862572*^9},ExpressionUUID->"a90c6a0d-f794-49bb-b253-e84fb8f87c1a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"\"\<pureRule30CA_4by4_\>\"", "<>", 
+      RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.txt\>\""}], ",", 
+     RowBox[{"Grid", "[", 
+      RowBox[{"f", "[", "4", "]"}], "]"}], ",", "\"\<Table\>\""}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", "100"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.743178127284*^9, 3.743178227789*^9}, {3.743178277329*^9,
+   3.743178286972*^9}, {3.743178325566*^9, 3.743178327626*^9}, {
+  3.743178444348*^9, 
+  3.743178464442*^9}},ExpressionUUID->"91147030-3abe-4ce0-8487-85418f0ae2ed"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"pureRule30CA_4by4_1.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_2.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_3.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_4.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_5.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_6.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_7.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_8.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_9.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_10.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_11.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_12.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_13.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_14.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_15.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_16.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_17.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_18.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_19.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_20.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_21.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_22.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_23.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_24.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_25.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_26.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_27.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_28.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_29.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_30.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_31.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_32.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_33.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_34.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_35.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_36.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_37.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_38.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_39.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_40.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_41.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_42.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_43.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_44.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_45.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_46.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_47.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_48.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_49.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_50.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_51.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_52.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_53.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_54.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_55.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_56.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_57.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_58.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_59.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_60.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_61.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_62.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_63.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_64.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_65.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_66.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_67.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_68.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_69.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_70.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_71.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_72.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_73.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_74.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_75.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_76.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_77.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_78.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_79.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_80.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_81.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_82.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_83.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_84.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_85.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_86.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_87.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_88.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_89.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_90.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_91.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_92.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_93.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_94.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_95.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_96.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_97.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_98.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_99.txt\"\>", 
+   ",", "\<\"pureRule30CA_4by4_100.txt\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.743178290744*^9, 3.7431783296*^9, {3.743178447467*^9, 
+   3.743178465491*^9}},ExpressionUUID->"d218b827-acc8-48a8-a8f8-288aaf1b309a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"\"\<increasingRule30CA_4by4_\>\"", "<>", 
+      RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.txt\>\""}], ",", 
+     RowBox[{"Grid", "[", 
+      RowBox[{"g", "[", "4", "]"}], "]"}], ",", "\"\<Table\>\""}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", "100"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7431784994639997`*^9, 
+  3.7431785068380003`*^9}},ExpressionUUID->"c879faad-2194-4a8a-ba00-\
+e6c518202b83"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"increasingRule30CA_4by4_1.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_2.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_3.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_4.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_5.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_6.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_7.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_8.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_9.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_10.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_11.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_12.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_13.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_14.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_15.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_16.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_17.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_18.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_19.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_20.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_21.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_22.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_23.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_24.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_25.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_26.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_27.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_28.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_29.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_30.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_31.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_32.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_33.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_34.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_35.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_36.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_37.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_38.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_39.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_40.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_41.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_42.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_43.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_44.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_45.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_46.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_47.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_48.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_49.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_50.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_51.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_52.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_53.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_54.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_55.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_56.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_57.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_58.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_59.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_60.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_61.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_62.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_63.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_64.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_65.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_66.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_67.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_68.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_69.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_70.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_71.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_72.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_73.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_74.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_75.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_76.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_77.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_78.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_79.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_80.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_81.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_82.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_83.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_84.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_85.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_86.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_87.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_88.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_89.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_90.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_91.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_92.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_93.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_94.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_95.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_96.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_97.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_98.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_99.txt\"\>", 
+   ",", "\<\"increasingRule30CA_4by4_100.txt\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.74317850852*^9},ExpressionUUID->"625e61cd-eeb9-4271-b926-0948923a5925"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  "\"\<C:\\\\Users\\\\Epimetheus\\\\Documents\\\\GitHub\\\\ShortestTradeRoute\
+\\\\8by8\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.743178518941*^9, 
+  3.743178521321*^9}},ExpressionUUID->"f9b2aa74-b1cb-410c-acb0-7fbfc51dfcfe"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\Epimetheus\\\\Documents\\\\GitHub\\\\\
+ShortestTradeRoute\\\\8by8\"\>"], "Output",
+ CellChangeTimes->{
+  3.7431785229230003`*^9},ExpressionUUID->"5591571f-a56c-419e-93b6-\
+3d9a4ce326e1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"\"\<pureRule30CA_8by8_\>\"", "<>", 
+      RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.txt\>\""}], ",", 
+     RowBox[{"Grid", "[", 
+      RowBox[{"f", "[", "8", "]"}], "]"}], ",", "\"\<Table\>\""}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", "100"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7431785280109997`*^9, 3.743178571701*^9}, {
+  3.743178601898*^9, 
+  3.7431786034300003`*^9}},ExpressionUUID->"9a295223-8208-4ae5-88bc-\
+cc08d86dd74a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"pureRule30CA_8by8_1.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_2.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_3.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_4.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_5.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_6.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_7.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_8.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_9.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_10.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_11.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_12.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_13.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_14.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_15.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_16.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_17.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_18.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_19.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_20.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_21.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_22.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_23.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_24.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_25.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_26.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_27.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_28.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_29.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_30.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_31.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_32.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_33.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_34.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_35.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_36.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_37.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_38.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_39.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_40.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_41.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_42.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_43.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_44.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_45.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_46.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_47.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_48.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_49.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_50.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_51.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_52.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_53.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_54.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_55.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_56.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_57.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_58.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_59.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_60.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_61.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_62.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_63.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_64.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_65.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_66.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_67.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_68.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_69.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_70.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_71.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_72.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_73.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_74.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_75.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_76.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_77.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_78.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_79.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_80.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_81.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_82.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_83.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_84.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_85.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_86.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_87.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_88.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_89.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_90.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_91.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_92.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_93.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_94.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_95.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_96.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_97.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_98.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_99.txt\"\>", 
+   ",", "\<\"pureRule30CA_8by8_100.txt\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.743178577816*^9, 
+  3.7431786046870003`*^9}},ExpressionUUID->"e3acc2c8-d534-4cad-bc75-\
+d732f9d623ee"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"\"\<increasingRule30CA_8by8_\>\"", "<>", 
+      RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.txt\>\""}], ",", 
+     RowBox[{"Grid", "[", 
+      RowBox[{"g", "[", "8", "]"}], "]"}], ",", "\"\<Table\>\""}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", "100"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.743178610796*^9},ExpressionUUID->"969ddbbc-8dc5-441d-bf53-72c9aa42e9a8"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"increasingRule30CA_8by8_1.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_2.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_3.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_4.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_5.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_6.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_7.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_8.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_9.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_10.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_11.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_12.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_13.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_14.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_15.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_16.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_17.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_18.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_19.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_20.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_21.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_22.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_23.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_24.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_25.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_26.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_27.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_28.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_29.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_30.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_31.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_32.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_33.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_34.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_35.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_36.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_37.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_38.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_39.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_40.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_41.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_42.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_43.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_44.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_45.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_46.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_47.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_48.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_49.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_50.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_51.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_52.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_53.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_54.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_55.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_56.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_57.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_58.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_59.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_60.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_61.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_62.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_63.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_64.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_65.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_66.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_67.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_68.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_69.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_70.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_71.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_72.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_73.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_74.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_75.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_76.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_77.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_78.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_79.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_80.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_81.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_82.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_83.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_84.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_85.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_86.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_87.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_88.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_89.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_90.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_91.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_92.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_93.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_94.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_95.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_96.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_97.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_98.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_99.txt\"\>", 
+   ",", "\<\"increasingRule30CA_8by8_100.txt\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7431786121610003`*^9},ExpressionUUID->"2a7e4452-cbf3-4b8a-bca5-\
+11d40968ee2f"]
+}, Open  ]]
+},
+WindowSize->{944, 1022},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 273, 5, 28, "Input",ExpressionUUID->"04ce7512-863e-4b33-aa80-cfa6f82ff9a7"],
+Cell[856, 29, 212, 3, 32, "Output",ExpressionUUID->"6446b731-fbbc-4fdd-9d24-dce8c06f6d9f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1105, 37, 507, 14, 28, "Input",ExpressionUUID->"03a93582-f450-4d5e-a64d-b9ed08743a32"],
+Cell[1615, 53, 388, 8, 21, "Message",ExpressionUUID->"3ae1870c-ec10-46de-840f-8c78e4fa0a14"],
+Cell[2006, 63, 767, 13, 21, "Message",ExpressionUUID->"9c47e69b-c156-449b-ac99-bb857725830e"],
+Cell[2776, 78, 487, 14, 32, "Output",ExpressionUUID->"b1751b92-4f99-4810-9abf-20edb1a2db88"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3300, 97, 328, 8, 28, "Input",ExpressionUUID->"9ff5b515-bf65-4f42-a26a-77117632c89f"],
+Cell[3631, 107, 259, 6, 32, "Output",ExpressionUUID->"a90c6a0d-f794-49bb-b253-e84fb8f87c1a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3927, 118, 646, 14, 28, "Input",ExpressionUUID->"91147030-3abe-4ce0-8487-85418f0ae2ed"],
+Cell[4576, 134, 4699, 104, 489, "Output",ExpressionUUID->"d218b827-acc8-48a8-a8f8-288aaf1b309a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9312, 243, 538, 13, 28, "Input",ExpressionUUID->"c879faad-2194-4a8a-ba00-e6c518202b83"],
+Cell[9853, 258, 5237, 103, 660, "Output",ExpressionUUID->"625e61cd-eeb9-4271-b926-0948923a5925"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15127, 366, 273, 5, 28, "Input",ExpressionUUID->"f9b2aa74-b1cb-410c-acb0-7fbfc51dfcfe"],
+Cell[15403, 373, 219, 4, 32, "Output",ExpressionUUID->"5591571f-a56c-419e-93b6-3d9a4ce326e1"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15659, 382, 575, 14, 28, "Input",ExpressionUUID->"9a295223-8208-4ae5-88bc-cc08d86dd74a"],
+Cell[16237, 398, 4666, 104, 489, "Output",ExpressionUUID->"e3acc2c8-d534-4cad-bc75-d732f9d623ee"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20940, 507, 505, 12, 28, "Input",ExpressionUUID->"969ddbbc-8dc5-441d-bf53-72c9aa42e9a8"],
+Cell[21448, 521, 5245, 104, 660, "Output",ExpressionUUID->"2a7e4452-cbf3-4b8a-bca5-11d40968ee2f"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

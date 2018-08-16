@@ -86,29 +86,40 @@ public class ShortestTradeRoute {
          * 
          * https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
          */
-
-       final int[][] testCommandLine = Files.lines(FileSystems.getDefault().getPath(args[0]))
+        final int[][] testCommandLine = Files.lines(FileSystems.getDefault().getPath(args[0]))
                                     .map((l)->l.trim().split("\\s+"))
                                     .map((sa)->Stream.of(sa).mapToInt(Integer::parseInt).toArray())
                                     .toArray(int[][]::new);
         
+        System.out.println(); 
+        for (int i = 0; i < testCommandLine[0].length; i++) System.out.print("-----\t");
+        System.out.println(); 
+        for (int i = 0; i < testCommandLine[0].length; i++) System.out.print("| "+(i)+" |\t");
+        System.out.println(); 
+        for (int i = 0; i < testCommandLine[0].length; i++) System.out.print("-----\t");
+        System.out.println(); 
         for (int i = 0; i < testCommandLine[0].length; i++){
             for (int j = 0; j < testCommandLine.length; j++) {
                 System.out.print(testCommandLine[i][j]+"\t");
             }
             System.out.print("\n");
         }
+        
+        
         Long startTime = System.currentTimeMillis();
-        Graph g = new Graph(testCommandLine.length,factorial(testCommandLine.length - 1));
+        Graph g = new Graph(testCommandLine.length);
         g.drawGraph(testCommandLine);
         Long runTime = System.currentTimeMillis() - startTime;
         System.out.println("Preprocessing Runtime: " + runTime + " ns");
-        // System.out.println("Naive Approach: ");
-        // startTime = System.currentTimeMillis();
-        // Dipath temp = g.minimumNaiveBruteForce();
-        // runTime = System.currentTimeMillis() - startTime;
-        // System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
-        // System.out.println("Runtime: " + runTime + " ms");
+        
+        System.out.println("Naive Approach: ");
+        startTime = System.currentTimeMillis();
+        Dipath temp = g.minimumNaiveBruteForce();
+        runTime = System.currentTimeMillis() - startTime;
+        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("Runtime: " + runTime + " ms");
+
+        System.out.println();
 
         startTime = System.nanoTime();
         Dipath BFS = g.BreadthFirstSearch();
@@ -125,14 +136,7 @@ public class ShortestTradeRoute {
         System.out.println("Dijkstra: ");
         System.out.println("Minimum path: "+ Dijksta.toString()+"\nCost: "+ Dijksta.cost);
         System.out.println("Runtime: " + runTime + " ns");
-    }
-
-    public static int factorial(int N) {
-        if (N == 0) return 1;
-        int p = 1, i;
-        for (i = 1; i <= N; i++)
-            p *= i;
-        return p;
+        
     }
 
 }
