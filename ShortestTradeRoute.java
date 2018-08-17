@@ -7,6 +7,11 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 /**
+ * #INSTRUCTIONS:
+ * 1. run in terminal: javac *.java
+ * 2. run in terminal: java ShortestTradeRoute increasingRule30CA_16by16_22.txt
+ * 3. run in terminal: run: java ShortestTradeRoute pureRule30CA_16by16_63.txt
+ * 
  * @author Jake McKenzie
  * @version August 12, 2018
  * 
@@ -110,13 +115,13 @@ public class ShortestTradeRoute {
         Graph g = new Graph(testCommandLine.length);
         g.drawGraph(testCommandLine);
         Long runTime = System.currentTimeMillis() - startTime;
-        System.out.println("Preprocessing Runtime: " + runTime + " ns");
+        System.out.println("Preprocessing into Graph Runtime: " + runTime + " ns");
         
-        System.out.println("Naive Approach: ");
+        System.out.println("Naive Brute Force Approach: ");
         startTime = System.currentTimeMillis();
-        Dipath temp = g.minimumNaiveBruteForce();
+        Dipath brute = g.minimumNaiveBruteForce();
         runTime = System.currentTimeMillis() - startTime;
-        System.out.println("Minimum path: "+temp.toString()+"\nCost: "+temp.cost);
+        System.out.println("Minimum path: "+brute.toString()+"\nCost: "+brute.cost);
         System.out.println("Runtime: " + runTime + " ms");
 
         System.out.println();
@@ -133,7 +138,7 @@ public class ShortestTradeRoute {
         startTime = System.nanoTime();
         Dipath Dijksta = g.Dijkstra();
         runTime = System.nanoTime() - startTime;
-        System.out.println("Dijkstra: ");
+        System.out.println("Dijkstra using Dynamic Programming: ");
         System.out.println("Minimum path: "+ Dijksta.toString()+"\nCost: "+ Dijksta.cost);
         System.out.println("Runtime: " + runTime + " ns");
         
